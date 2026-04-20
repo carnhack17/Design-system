@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System - Tech Vibrant UI</title>
+  <link rel="stylesheet" href="design-system.css">
+  <style>
+    /* Additional demo styles */
+    .demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-lg);
+    }
+
+    .demo-section {
+      margin-bottom: var(--space-3xl);
+      padding: var(--space-lg);
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .demo-section-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-lg);
+      color: var(--color-primary);
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: var(--space-md);
+    }
+
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .component-showcase {
+      background-color: var(--bg-primary);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .component-showcase-label {
+      font-size: var(--font-size-xs);
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .color-swatch {
+      display: inline-block;
+      width: 80px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      margin-right: var(--space-md);
+      margin-bottom: var(--space-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .color-info {
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+      margin-top: var(--space-sm);
+      font-family: var(--font-family-mono);
+    }
+
+    /* Control Panel */
+    .control-panel {
+      position: sticky;
+      top: 60px;
+      background-color: var(--bg-secondary);
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+
+    .control-panel-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-md);
+      color: var(--color-primary);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .control-group label {
+      margin-bottom: 0;
+    }
+
+    .control-group input[type="color"] {
+      width: 100%;
+      height: 40px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .brand-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .brand-btn {
+      padding: var(--space-md);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-primary);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .brand-btn.active {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .brand-btn:hover {
+      border-color: var(--color-primary);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      padding: var(--space-3xl) var(--space-lg);
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .header h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .header p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+    }
+
+    /* Code snippet */
+    .code-snippet {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      overflow-x: auto;
+      margin-top: var(--space-md);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--bg-secondary);
+      padding: var(--space-lg);
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      margin-top: var(--space-3xl);
+    }
+
+    .footer-text {
+      color: var(--text-secondary);
+      font-size: var(--font-size-sm);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-brand">◆ Design System</div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a href="#buttons">Boutons</a></li>
+      <li class="navbar-item"><a href="#forms">Formulaires</a></li>
+      <li class="navbar-item"><a href="#components">Composants</a></li>
+      <li class="navbar-item"><a href="#tokens">Tokens</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTROL PANEL -->
+  <div class="control-panel">
+    <div class="control-panel-title">⚙️ Contrôles en Temps Réel</div>
+    <div class="controls">
+      <div class="control-group">
+        <label for="theme-toggle">🌙 Mode Sombre</label>
+        <input type="checkbox" id="theme-toggle" style="width: 40px; cursor: pointer;">
+      </div>
+      <div class="control-group">
+        <label for="primary-color">Couleur Primaire</label>
+        <input type="color" id="primary-color" value="#3b82f6">
+      </div>
+      <div class="control-group">
+        <label for="secondary-color">Couleur Secondaire</label>
+        <input type="color" id="secondary-color" value="#8b5cf6">
+      </div>
+      <div class="control-group">
+        <label for="accent-color">Couleur Accent</label>
+        <input type="color" id="accent-color" value="#06b6d4">
+      </div>
+    </div>
+    <div class="brand-selector">
+      <button class="brand-btn active" data-brand="tech">🎨 Tech</button>
+      <button class="brand-btn" data-brand="minimal">⚪ Minimal</button>
+      <button class="brand-btn" data-brand="warm">🔥 Warm</button>
+    </div>
+  </div>
+
+  <div class="demo-container">
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Design System</h1>
+      <p>Système UI professionnel et scalable • Couleurs dynamiques • Dark Mode intégré</p>
+    </div>
+
+    <!-- BUTTONS SECTION -->
+    <div class="demo-section" id="buttons">
+      <h2 class="demo-section-title">🔘 Boutons</h2>
+
+      <h3 style="margin-bottom: var(--space-md); color: var(--text-primary);">Variants</h3>
+      <div class="component-grid">
+        <div class="component-showcase">
+          <div class="component-showcase-label">Primary</div>
+          <button class="btn btn-primary">Cliquez-moi</button>
+          <div class="code-snippet">class="btn btn-primary"</div>
+        </div>
+        <div class="component-showcase">
+          <div class="component-showcase-label">Secondary</div>
+          <button class="btn btn-secondary">Cliquez-moi</button>
+          <div class="code-snippet">class="btn btn-secondary"</div>
+        </div>
+        <div class="component-showcase">
+          <div class="component-showcase-label">Ghost</div>
+          <button class="btn btn-ghost">Cliquez-moi</button>
+          <div class="code-snippet">class="btn btn-ghost"</div>
+        </div>
+        <div class="component-showcase">
+          <div class="component-showcase-label">Danger</div>
+          <button class="btn btn-danger">Supprimer</button>
+          <div class="code-snippet">class="btn btn-danger"</div>
+        </div>
+        <div class="component-showcase">
+          <div class="component-showcase-label">Success</div>
+          <button class="btn btn-success">Valider</button>
+          <div class="code-snippet">class="btn btn-success"</div>
+        </div>
+        <div class="component-showcase">
+          <div class="component-showcase-label">Disabled</div>
+          <button class="btn btn-primary" disabled>Désactivé</button>
+          <div class="code-snippet">disabled</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-md); color: var(--text-primary);">Tailles</h3>
+      <div class="component-showcase">
+        <button class="btn btn-primary btn-sm">Petit</button>
+        <button class="btn btn-primary" style="margin-left: var(--space-md);">Normal</button>
+        <button class="btn btn-primary btn-lg" style="margin-left: var(--space-md);">Grand</button>
+        <button class="btn btn-primary btn-block" style="margin-top: var(--space-md);">Largeur complète</button>
+      </div>
+    </div>
+
+    <!-- CARDS SECTION -->
+    <div class="demo-section">
+      <h2 class="demo-section-title">🎴 Cards</h2>
+      <div class="grid">
+        <div class="grid-col-4">
+          <div class="card">
+            <div class="card-image"></div>
+            <div class="card-title">Titre Card</div>
+            <div class="card-content">Description courte de votre contenu. Les cards sont parfaites pour organiser l'information.</div>
+          </div>
+        </div>
+        <div class="grid-col-4">
+          <div class="card card-elevated">
+            <div class="card-title">Card Elevated</div>
+            <div class="card-content">Une version avec plus de profondeur et d'ombre pour mettre en avant le contenu.</div>
+          </div>
+        </div>
+        <div class="grid-col-4">
+          <div class="card">
+            <div class="card-title">Features</div>
+            <ul style="margin: 0; padding-left: var(--space-lg);">
+              <li style="margin-bottom: var(--space-sm);">Responsive design</li>
+              <li style="margin-bottom: var(--space-sm);">Dark mode</li>
+              <li>Tokens dynamiques</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMS SECTION -->
+    <div class="demo-section" id="forms">
+      <h2 class="demo-section-title">📝 Formulaires</h2>
+      <div class="grid">
+        <div class="grid-col-6">
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input type="text" id="name" placeholder="Jean Dupont">
+            <div class="form-helper">Entrez votre nom complet</div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="hello@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="country">Pays</label>
+            <select id="country">
+              <option>Sélectionnez un pays</option>
+              <option>France</option>
+              <option>Canada</option>
+              <option>Belgique</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Votre message ici..."></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block">Envoyer</button>
+        </div>
+
+        <div class="grid-col-6">
+          <div class="form-group">
+            <label style="margin-bottom: var(--space-md);">
+              <input type="checkbox" style="width: auto; margin-right: var(--space-sm);">
+              J'accepte les conditions
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label style="margin-bottom: var(--space-md);">
+              <input type="radio" name="option" style="width: auto; margin-right: var(--space-sm);">
+              Option 1
+            </label>
+            <label style="margin-bottom: var(--space-md);">
+              <input type="radio" name="option" style="width: auto; margin-right: var(--space-sm);">
+              Option 2
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" placeholder="••••••••">
+            <div class="form-helper form-error">Le mot de passe doit contenir au moins 8 caractères</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPONENTS SECTION -->
+    <div class="demo-section" id="components">
+      <h2 class="demo-section-title">✨ Composants Additionnels</h2>
+
+      <h3 style="margin-bottom: var(--space-md); color: var(--text-primary);">Badges</h3>
+      <div style="margin-bottom: var(--space-lg);">
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-secondary">Secondary</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-danger">Danger</span>
+      </div>
+
+      <h3 style="margin-bottom: var(--space-md); color: var(--text-primary);">Alerts</h3>
+      <div class="alert alert-info">
+        <strong>Info:</strong> Ceci est un message informatif pour l'utilisateur.
+      </div>
+      <div class="alert alert-success">
+        <strong>Succès!</strong> Votre action a été complétée avec succès.
+      </div>
+      <div class="alert alert-warning">
+        <strong>Attention:</strong> Ceci est un message d'avertissement important.
+      </div>
+      <div class="alert alert-danger">
+        <strong>Erreur:</strong> Une erreur s'est produite. Veuillez réessayer.
+      </div>
+    </div>
+
+    <!-- DESIGN TOKENS SECTION -->
+    <div class="demo-section" id="tokens">
+      <h2 class="demo-section-title">🎨 Design Tokens</h2>
+
+      <h3 style="margin-bottom: var(--space-md); color: var(--text-primary);">Couleurs Primaires</h3>
+      <div>
+        <div style="margin-bottom: var(--space-lg);">
+          <div class="color-swatch" style="background-color: var(--color-primary);"></div>
+          <div class="color-info">Primary: #3b82f6</div>
+        </div>
+        <div style="margin-bottom: var(--space-lg);">
+          <div class="color-swatch" style="background-color: var(--color-secondary);"></div>
+          <div class="color-info">Secondary: #8b5cf6</div>
+        </div>
+        <div style="margin-bottom: var(--space-lg);">
+          <div class="color-swatch" style="background-color: var(--color-accent);"></div>
+          <div class="color-info">Accent: #06b6d4</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-md); color: var(--text-primary);">Sémantiques</h3>
+      <div class="grid">
+        <div class="grid-col-3">
+          <div class="color-swatch" style="background-color: var(--color-success); margin-bottom: var(--space-md);"></div>
+          <div class="color-info">Success</div>
+        </div>
+        <div class="grid-col-3">
+          <div class="color-swatch" style="background-color: var(--color-warning); margin-bottom: var(--space-md);"></div>
+          <div class="color-info">Warning</div>
+        </div>
+        <div class="grid-col-3">
+          <div class="color-swatch" style="background-color: var(--color-danger); margin-bottom: var(--space-md);"></div>
+          <div class="color-info">Danger</div>
+        </div>
+        <div class="grid-col-3">
+          <div class="color-swatch" style="background-color: var(--color-info); margin-bottom: var(--space-md);"></div>
+          <div class="color-info">Info</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-md); color: var(--text-primary);">Typographie Responsive</h3>
+      <div style="background-color: var(--bg-primary); padding: var(--space-lg); border-radius: var(--radius-md);">
+        <p style="font-size: var(--font-size-3xl); margin-bottom: var(--space-md);">H1 - Font Size 3XL</p>
+        <p style="font-size: var(--font-size-2xl); margin-bottom: var(--space-md);">H2 - Font Size 2XL</p>
+        <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-md);">Body Large - Font Size LG</p>
+        <p style="font-size: var(--font-size-base); margin-bottom: var(--space-md);">Body - Font Size Base</p>
+        <p style="font-size: var(--font-size-sm);">Small - Font Size SM</p>
+      </div>
+
+      <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-md); color: var(--text-primary);">Spacing Scale</h3>
+      <div class="code-snippet">
+--space-xs: 4px;
+--space-sm: 8px;
+--space-md: 16px;
+--space-lg: 24px;
+--space-xl: 32px;
+--space-2xl: 48px;
+--space-3xl: 64px;
+      </div>
+
+      <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-md); color: var(--text-primary);">Border Radius</h3>
+      <div class="grid">
+        <div class="grid-col-2" style="text-align: center;">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-none); margin: auto auto var(--space-md);"></div>
+          <div class="color-info">None</div>
+        </div>
+        <div class="grid-col-2" style="text-align: center;">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-sm); margin: auto auto var(--space-md);"></div>
+          <div class="color-info">SM</div>
+        </div>
+        <div class="grid-col-2" style="text-align: center;">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-md); margin: auto auto var(--space-md);"></div>
+          <div class="color-info">MD</div>
+        </div>
+        <div class="grid-col-2" style="text-align: center;">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-lg); margin: auto auto var(--space-md);"></div>
+          <div class="color-info">LG</div>
+        </div>
+        <div class="grid-col-2" style="text-align: center;">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-full); margin: auto auto var(--space-md);"></div>
+          <div class="color-info">FULL</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DEMO -->
+    <div class="demo-section">
+      <h2 class="demo-section-title">🔲 Modal</h2>
+      <button class="btn btn-primary" onclick="openModal()">Ouvrir Modal</button>
+    </div>
+  </div>
+
+  <!-- MODAL COMPONENT -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Exemple de Modal</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Ceci est un modal de démonstration. Les modals sont parfaits pour afficher du contenu important ou demander une confirmation.</p>
+        <div class="alert alert-info">
+          Vous pouvez cliquer sur la croix ou utiliser les boutons ci-dessous pour fermer ce modal.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal()">Annuler</button>
+        <button class="btn btn-primary" onclick="closeModal()">Confirmer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p class="footer-text">
+      💻 Design System - Créé pour un portfolio professionnel |
+      <a href="https://github.com" style="color: var(--color-primary);">GitHub</a>
+    </p>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
